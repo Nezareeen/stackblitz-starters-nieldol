@@ -22,7 +22,7 @@ app.listen(port, async() => {
 app.get('/menu', async(req,res)=>{
   try {
     const dishes = await schema.find();
-    res.json(dishes);    
+    res.status(200).send(dishes);    
   } catch (error) {
     console.log("Something went wrong", error);
   }
@@ -32,7 +32,7 @@ app.post('/menu', async(req,res)=>{
   try {
     const dish = new schema(req.body);
   await dish.save();
-  res.json(dish);
+  res.status(201).send({msg:"Dish created successfully"});
   } catch (error) {
     console.log("Something went wrong", error)
   }
