@@ -20,12 +20,20 @@ app.listen(port, async() => {
 });
 
 app.get('/menu', async(req,res)=>{
-  const dishes = await schema.find();
-  res.json(dishes);
+  try {
+    const dishes = await schema.find();
+    res.json(dishes);    
+  } catch (error) {
+    console.log("Something went wrong", error);
+  }
 });
 
 app.post('/menu', async(req,res)=>{
-  const dish = new schema(req.body);
+  try {
+    const dish = new schema(req.body);
   await dish.save();
   res.json(dish);
+  } catch (error) {
+    console.log("Something went wrong", error)
+  }
 });
